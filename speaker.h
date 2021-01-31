@@ -80,8 +80,6 @@ void speakerFull(short frec) {
     setupFrec(frec);
     sendFrec();
     speakerOn();
-    sleep(1);
-    speakerOff();
 }
 
 #endif

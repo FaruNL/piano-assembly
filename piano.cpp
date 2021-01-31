@@ -85,63 +85,101 @@ void releaseMouseButton() {
 void firstCheck() {
     if ( (posX >= 0) && (posX <= 6) ) {
         speakerFull(Middle_C);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 7) && (posX <= 10) ) {
         speakerFull(CSharp2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 11) && (posX <= 17) ) {
         speakerFull(D2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 18) && (posX <= 21) ) {
         speakerFull(DSharp2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 22) && (posX <= 28) ) {
         speakerFull(E2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 29) && (posX <= 35) ) {
         speakerFull(F2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 36) && (posX <= 39) ) {
         speakerFull(FSharp2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 40) && (posX <= 46) ) {
         speakerFull(G2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 47) && (posX <= 50) ) {
         speakerFull(GSharp2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 51) && (posX <= 57) ) {
         speakerFull(A2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 58) && (posX <= 61) ) {
         speakerFull(ASharp2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 62) && (posX <= 68) ) {
         speakerFull(B2);
+        releaseMouseButton();
+        speakerOff();
     }
 }
 
 void secondCheck() {
     if ( (posX >= 0) && (posX <= 8) ) {
         speakerFull(Middle_C);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 9) && (posX <= 19) ) {
         speakerFull(D2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 20) && (posX <= 28) ) {
         speakerFull(E2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 29) && (posX <= 37) ) {
         speakerFull(F2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 38) && (posX <= 48) ) {
         speakerFull(G2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 49) && (posX <= 59) ) {
         speakerFull(A2);
+        releaseMouseButton();
+        speakerOff();
     }
     if ( (posX >= 60) && (posX <= 68) ) {
         speakerFull(B3);
+        releaseMouseButton();
+        speakerOff();
     }
 }
 
@@ -158,7 +196,6 @@ void main() {
     while(1){
         checkMouseButton();
         if(mouseButton == 1) {
-            releaseMouseButton();
             setXandY();
             switch(posY){
                 case 0:
