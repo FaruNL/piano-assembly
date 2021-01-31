@@ -27,26 +27,6 @@ void cls() {
     }
 }
 
-char keyPressed() {
-    char key;
-    _asm {
-        MOV     AH, 08h
-        INT     21H
-
-        MOV     key, AL
-    }
-    
-    return key;
-}
-
-void printChar(char value) {
-    _asm {
-		MOV AH, 02h
-        MOV DL, value
-		INT 21h
-	}
-}
-
 /* Mouse */
 void initMouse() {
     _asm {
@@ -101,6 +81,71 @@ void releaseMouseButton() {
     }
 }
 
+/* Revisiones en PosX  */
+void firstCheck() {
+    if ( (posX >= 0) && (posX <= 6) ) {
+        speakerFull(Middle_C);
+    }
+    if ( (posX >= 7) && (posX <= 10) ) {
+        speakerFull(CSharp2);
+    }
+    if ( (posX >= 11) && (posX <= 17) ) {
+        speakerFull(D2);
+    }
+    if ( (posX >= 18) && (posX <= 21) ) {
+        speakerFull(DSharp2);
+    }
+    if ( (posX >= 22) && (posX <= 28) ) {
+        speakerFull(E2);
+    }
+    if ( (posX >= 29) && (posX <= 35) ) {
+        speakerFull(F2);
+    }
+    if ( (posX >= 36) && (posX <= 39) ) {
+        speakerFull(FSharp2);
+    }
+    if ( (posX >= 40) && (posX <= 46) ) {
+        speakerFull(G2);
+    }
+    if ( (posX >= 47) && (posX <= 50) ) {
+        speakerFull(GSharp2);
+    }
+    if ( (posX >= 51) && (posX <= 57) ) {
+        speakerFull(A2);
+    }
+    if ( (posX >= 58) && (posX <= 61) ) {
+        speakerFull(ASharp2);
+    }
+    if ( (posX >= 62) && (posX <= 68) ) {
+        speakerFull(B2);
+    }
+}
+
+void secondCheck() {
+    if ( (posX >= 0) && (posX <= 8) ) {
+        speakerFull(Middle_C);
+    }
+    if ( (posX >= 9) && (posX <= 19) ) {
+        speakerFull(D2);
+    }
+    if ( (posX >= 20) && (posX <= 28) ) {
+        speakerFull(E2);
+    }
+    if ( (posX >= 29) && (posX <= 37) ) {
+        speakerFull(F2);
+    }
+    if ( (posX >= 38) && (posX <= 48) ) {
+        speakerFull(G2);
+    }
+    if ( (posX >= 49) && (posX <= 59) ) {
+        speakerFull(A2);
+    }
+    if ( (posX >= 60) && (posX <= 68) ) {
+        speakerFull(B3);
+    }
+}
+
+
 /* Main */
 void main() {
     cls();
@@ -117,12 +162,7 @@ void main() {
             setXandY();
             switch(posY){
                 case 0:
-                    if ( (posX >= 0) && (posX <= 6) ) {
-                        speakerFull(C);
-                    }
-                    if ( (posX >= 7) && (posX <= 10) ) {
-                        speakerFull(CSharp);
-                    }
+                firstCheck();
                     if(posX == 79) {
                         hideMouse();
                         return;
@@ -130,48 +170,27 @@ void main() {
                 break;
 
                 case 1:
-                    if ( (posX >= 0) && (posX <= 6) ) {
-                        speakerFull(C);
-                    }
-                    if ( (posX >= 7) && (posX <= 10) ) {
-                        speakerFull(CSharp);
-                    }
+                    firstCheck();
                 break;
 
                 case 2:
-                    if ( (posX >= 0) && (posX <= 6) ) {
-                        speakerFull(C);
-                    }
-                    if ( (posX >= 7) && (posX <= 10) ) {
-                        speakerFull(CSharp);
-                    }
+                    firstCheck();
                 break;
 
                 case 3:
-                    if ( (posX >= 0) && (posX <= 6) ) {
-                        speakerFull(C);
-                    }
-                    if ( (posX >= 7) && (posX <= 10) ) {
-                        speakerFull(CSharp);
-                    }
+                    firstCheck();
                 break;
 
                 case 4:
-                    if ( (posX >= 0) && (posX <= 8) ) {
-                        speakerFull(C);
-                    }
+                    secondCheck();
                 break;
 
                 case 5:
-                    if ( (posX >= 0) && (posX <= 8) ) {
-                        speakerFull(C);
-                    }
+                    secondCheck();
                 break;
 
                 case 6:
-                    if ( (posX >= 0) && (posX <= 8) ) {
-                        speakerFull(C);
-                    }
+                    secondCheck();
                 break;
             }
         }
