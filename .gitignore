@@ -1,0 +1,6 @@
+# Exclusión: Todo el contenido de la carpeta raíz
+# Exepción: Archivos terminados en .asm y .lib
+/*
+!/*.cpp
+!/*.h
+!.gitignore
