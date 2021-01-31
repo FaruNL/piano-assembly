@@ -84,7 +84,7 @@ void releaseMouseButton() {
 /* Revisiones en PosX  */
 void firstCheck() {
     if ( (posX >= 0) && (posX <= 6) ) {
-        speakerFull(Middle_C);
+        speakerFull(C2);
         releaseMouseButton();
         speakerOff();
     }
@@ -147,7 +147,7 @@ void firstCheck() {
 
 void secondCheck() {
     if ( (posX >= 0) && (posX <= 8) ) {
-        speakerFull(Middle_C);
+        speakerFull(C2);
         releaseMouseButton();
         speakerOff();
     }
@@ -177,18 +177,19 @@ void secondCheck() {
         speakerOff();
     }
     if ( (posX >= 60) && (posX <= 68) ) {
-        speakerFull(B3);
+        speakerFull(B2);
         releaseMouseButton();
         speakerOff();
     }
 }
-
 
 /* Main */
 void main() {
     cls();
 
     show(); // Muestra el gráfico del piano
+
+    cursorPos(0, 7);
 
     initMouse();
 

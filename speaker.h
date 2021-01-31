@@ -1,19 +1,7 @@
 #ifndef SPEAKER_H
 #define SPEAKER_H
 
-short C        = 9121;
-short CSharp   = 8609;
-short D        = 8126;
-short DSharp   = 7670;
-short E        = 7239;
-short F        = 6833;
-short FSharp   = 6449;
-short G        = 6087;
-short GSharp   = 5746;
-short A        = 5423;
-short ASharp   = 5119;
-short B        = 4831;
-short Middle_C = 4560;
+short C2       = 4560;
 short CSharp2  = 4304;
 short D2       = 4063;
 short DSharp2  = 3834;
@@ -25,19 +13,19 @@ short GSharp2  = 2873;
 short A2       = 2711;
 short ASharp2  = 2559;
 short B2       = 2415;
-short C2       = 2280;
-short CSharp3  = 2152;
-short D3       = 2031;
-short DSharp3  = 1917;
-short E3       = 1809;
-short F3       = 1715;
-short FSharp3  = 1612;
-short G3       = 1521;
-short GSharp3  = 1436;
-short A3       = 1355;
-short ASharp3  = 1292;
-short B3       = 1207;
-short C3       = 1140;
+
+char strC2[]       = {'C2','$'};
+char strCSharp2[]  = {'C2','#','$'};
+char strD2[]       = {'D2','$'};
+char strDSharp2[]  = {'D2','#','$'};
+char strE2[]       = {'E2','$'};
+char strF2[]       = {'F2','$'};
+char strFSharp2[]  = {'F2','#','$'};
+char strG2[]       = {'G2','$'};
+char strGSharp2[]  = {'G2','#','$'};
+char strA2[]       = {'A2','$'};
+char strASharp2[]  = {'A2','#','$'};
+char strB2[]       = {'B2','$'};
 
 void setupSpeaker() {
     _asm {
