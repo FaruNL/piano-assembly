@@ -1,5 +1,5 @@
 # Exclusión: Todo el contenido de la carpeta raíz
-# Exepción: Archivos terminados en .asm y .lib
+# Exepción: Archivos terminados en .cpp, .h y este archivo
 /*
 !/*.cpp
 !/*.h
