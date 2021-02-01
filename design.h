@@ -39,124 +39,86 @@ void colorExit(char filaESI, char columnaESI, char filaEID, char columnaEID) {
 	}
 }
 
-void noteLabels() {
+void noteLabels(char columnaPlus, char filaPlus) {
+    cursorPos(4 + columnaPlus, 5 + filaPlus);
 	_asm {
-	    MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 5h      
-        MOV DL, 4h       
-        INT 10h
-
         MOV AH, 09h      
         LEA DX, strC
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 2      
-        MOV DL, 8       
-        INT 10h
-
+    cursorPos(8 + columnaPlus, 2 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strCSharp
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 5h      
-        MOV DL, 14      
-        INT 10h
-
+    cursorPos(14 + columnaPlus, 5 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strD
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 2      
-        MOV DL, 19      
-        INT 10h
-
+    cursorPos(19 + columnaPlus, 2 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strDSharp
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 5h      
-        MOV DL, 24       
-        INT 10h
-
+    cursorPos(24 + columnaPlus, 5 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strE
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 5h      
-        MOV DL, 33
-        INT 10h
-
+    cursorPos(33 + columnaPlus, 5 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strF
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 2      
-        MOV DL, 37
-        INT 10h
-
+    cursorPos(37 + columnaPlus, 2 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strFSharp
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 5h      
-        MOV DL, 43       
-        INT 10h
-
+    cursorPos(43 + columnaPlus, 5 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strG
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 2      
-        MOV DL, 48      
-        INT 10h
-
+    cursorPos(48 + columnaPlus, 2 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strGSharp
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 5h      
-        MOV DL, 54       
-        INT 10h
-
+    cursorPos(54 + columnaPlus, 5 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strA
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 2     
-        MOV DL, 59      
-        INT 10h
-
+    cursorPos(59 + columnaPlus, 2 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strASharp
         INT 21h
+    }
 
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 5h      
-        MOV DL, 64       
-        INT 10h
-
+    cursorPos(64 + columnaPlus, 5 + filaPlus);
+    _asm {
         MOV AH, 09h      
         LEA DX, strB
         INT 21h
@@ -164,13 +126,8 @@ void noteLabels() {
 }
 
 void exitLabel() {
+    cursorPos(73, 0);
     _asm {
-        MOV AH, 02h      
-        MOV BH, 0h
-        MOV DH, 0
-        MOV DL, 73       
-        INT 10h
-
         MOV AH, 09h      
         LEA DX, salir
         INT 21h
@@ -202,7 +159,7 @@ void design() {
     colorExit(0,73,0,79);
     exitLabel();
 
-    noteLabels();
+    noteLabels(0, 0);
 }
 
 #endif
