@@ -15,8 +15,7 @@ char strASharp[] = "A#$";
 char strB[]      = "B$";
 char salir[]     = "[salir]$";
 
-void color(char filaESI, char columnaESI, char filaEID, char columnaEID)
-{
+void color(char filaESI, char columnaESI, char filaEID, char columnaEID) {
 	_asm {
 		MOV AX,0600h
 		MOV BH,78h
@@ -28,8 +27,7 @@ void color(char filaESI, char columnaESI, char filaEID, char columnaEID)
 	}
 }
 
-void colorExit(char filaESI, char columnaESI, char filaEID, char columnaEID)
-{
+void colorExit(char filaESI, char columnaESI, char filaEID, char columnaEID) {
 	_asm {
 		MOV AX,0600h
 		MOV BH,04h
@@ -41,8 +39,7 @@ void colorExit(char filaESI, char columnaESI, char filaEID, char columnaEID)
 	}
 }
 
-void noteLabels()
-{
+void noteLabels() {
 	_asm {
 	    MOV AH, 02h      
         MOV BH, 0h

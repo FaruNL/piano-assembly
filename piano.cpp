@@ -202,7 +202,7 @@ void main() {
             switch(posY){
                 case 0:
                 firstCheck();
-                    if(posX == 79) {
+                    if( (posX >= 73) && (posX <= 79) ) {
                         hideMouse();
                         return;
                     }
