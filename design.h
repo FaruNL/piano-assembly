@@ -134,10 +134,7 @@ void exitLabel() {
     }
 }
 
-void design() {
-    char filasPlus = 0;
-    char columnasPlus = 0;
-
+void design(char columnasPlus, char filasPlus) {
     color(1 + filasPlus,1 + columnasPlus,5 + filasPlus,5 + columnasPlus);
     color(4 + filasPlus,4 + columnasPlus,5 + filasPlus,7 + columnasPlus);
 
@@ -162,7 +159,7 @@ void design() {
     colorExit(0,73,0,79);
     exitLabel();
 
-    noteLabels(0, 0);
+    noteLabels(columnasPlus, filasPlus);
 }
 
 #endif

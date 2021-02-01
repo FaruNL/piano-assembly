@@ -145,9 +145,7 @@ void pianoKeyprintS(char columna, char fila) {
     printS(footerS);
 }
 
-void show(){
-    char fila = 0;
-    char columnaPlus = 0;
+void show(char columnaPlus, char fila){
     pianoKeyprintP(0 + columnaPlus, fila);
     pianoKeyprintS(7 + columnaPlus, fila);
     pianoKeyprintM(11 + columnaPlus, fila);

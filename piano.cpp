@@ -82,101 +82,101 @@ void releaseMouseButton() {
 }
 
 /* Revisiones en PosX  */
-void firstCheck() {
-    if ( (posX >= 0) && (posX <= 6) ) {
+void firstCheck(char plus) {
+    if ( (posX >= 0 + plus) && (posX <= 6 + plus) ) {
         speakerFull(C2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 7) && (posX <= 10) ) {
+    if ( (posX >= 7 + plus) && (posX <= 10 + plus) ) {
         speakerFull(CSharp2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 11) && (posX <= 17) ) {
+    if ( (posX >= 11 + plus) && (posX <= 17 + plus) ) {
         speakerFull(D2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 18) && (posX <= 21) ) {
+    if ( (posX >= 18 + plus) && (posX <= 21 + plus) ) {
         speakerFull(DSharp2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 22) && (posX <= 28) ) {
+    if ( (posX >= 22 + plus) && (posX <= 28 + plus) ) {
         speakerFull(E2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 29) && (posX <= 35) ) {
+    if ( (posX >= 29 + plus) && (posX <= 35 + plus) ) {
         speakerFull(F2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 36) && (posX <= 39) ) {
+    if ( (posX >= 36 + plus) && (posX <= 39 + plus) ) {
         speakerFull(FSharp2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 40) && (posX <= 46) ) {
+    if ( (posX >= 40 + plus) && (posX <= 46 + plus) ) {
         speakerFull(G2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 47) && (posX <= 50) ) {
+    if ( (posX >= 47 + plus) && (posX <= 50 + plus) ) {
         speakerFull(GSharp2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 51) && (posX <= 57) ) {
+    if ( (posX >= 51 + plus) && (posX <= 57 + plus) ) {
         speakerFull(A2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 58) && (posX <= 61) ) {
+    if ( (posX >= 58 + plus) && (posX <= 61 + plus) ) {
         speakerFull(ASharp2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 62) && (posX <= 68) ) {
+    if ( (posX >= 62 + plus) && (posX <= 68 + plus) ) {
         speakerFull(B2);
         releaseMouseButton();
         speakerOff();
     }
 }
 
-void secondCheck() {
-    if ( (posX >= 0) && (posX <= 8) ) {
+void secondCheck(char plus) {
+    if ( (posX >= 0 + plus) && (posX <= 8 + plus) ) {
         speakerFull(C2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 9) && (posX <= 19) ) {
+    if ( (posX >= 9 + plus) && (posX <= 19 + plus) ) {
         speakerFull(D2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 20) && (posX <= 28) ) {
+    if ( (posX >= 20 + plus) && (posX <= 28 + plus) ) {
         speakerFull(E2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 29) && (posX <= 37) ) {
+    if ( (posX >= 29 + plus) && (posX <= 37 + plus) ) {
         speakerFull(F2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 38) && (posX <= 48) ) {
+    if ( (posX >= 38 + plus) && (posX <= 48 + plus) ) {
         speakerFull(G2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 49) && (posX <= 59) ) {
+    if ( (posX >= 49 + plus) && (posX <= 59 + plus) ) {
         speakerFull(A2);
         releaseMouseButton();
         speakerOff();
     }
-    if ( (posX >= 60) && (posX <= 68) ) {
+    if ( (posX >= 60 + plus) && (posX <= 68 + plus) ) {
         speakerFull(B2);
         releaseMouseButton();
         speakerOff();
@@ -185,12 +185,15 @@ void secondCheck() {
 
 /* Main */
 void main() {
+    char initX = 4;
+    char initY = 9;
+
     cls();
 
-    show(); // Muestra el gráfico del piano
-    design();
+    show(initX, initY);   // Muestra el gráfico del piano
+    design(initX, initY); // Muestra etiquetas y colores
 
-    cursorPos(0, 7);
+    cursorPos(0, initY + 7); // Cursor abajo de la interfax
 
     initMouse();
 
@@ -199,38 +202,15 @@ void main() {
         checkMouseButton();
         if(mouseButton == 1) {
             setXandY();
-            switch(posY){
-                case 0:
-                firstCheck();
-                    if( (posX >= 73) && (posX <= 79) ) {
-                        hideMouse();
-                        return;
-                    }
-                break;
-
-                case 1:
-                    firstCheck();
-                break;
-
-                case 2:
-                    firstCheck();
-                break;
-
-                case 3:
-                    firstCheck();
-                break;
-
-                case 4:
-                    secondCheck();
-                break;
-
-                case 5:
-                    secondCheck();
-                break;
-
-                case 6:
-                    secondCheck();
-                break;
+            if((posY == 0) && (posX >= 73) && (posX <= 79) ) {
+                hideMouse();
+                return;
+            }
+            if(posY == initY || posY == (initY + 1) || posY == (initY + 2) || posY == (initY + 3)) {
+                firstCheck(initX);
+            }
+            if(posY == (initY + 4) || posY == (initY + 5) || posY == (initY + 6)) {
+                secondCheck(initX);
             }
         }
     }
