@@ -146,19 +146,20 @@ void pianoKeyprintS(char columna, char fila) {
 }
 
 void show(){
-    int fila = 0;
-    pianoKeyprintP(0, fila);
-    pianoKeyprintS(7, fila);
-    pianoKeyprintM(11, fila);
-    pianoKeyprintS(18, fila);
-    pianoKeyprintF(22, fila);
-    pianoKeyprintP(29, fila);
-    pianoKeyprintS(36, fila);
-    pianoKeyprintM(40, fila);
-    pianoKeyprintS(47, fila);
-    pianoKeyprintM(51, fila);
-    pianoKeyprintS(58, fila);
-    pianoKeyprintF(62, fila);
+    char fila = 0;
+    char columnaPlus = 0;
+    pianoKeyprintP(0 + columnaPlus, fila);
+    pianoKeyprintS(7 + columnaPlus, fila);
+    pianoKeyprintM(11 + columnaPlus, fila);
+    pianoKeyprintS(18 + columnaPlus, fila);
+    pianoKeyprintF(22 + columnaPlus, fila);
+    pianoKeyprintP(29 + columnaPlus, fila);
+    pianoKeyprintS(36 + columnaPlus, fila);
+    pianoKeyprintM(40 + columnaPlus, fila);
+    pianoKeyprintS(47 + columnaPlus, fila);
+    pianoKeyprintM(51 + columnaPlus, fila);
+    pianoKeyprintS(58 + columnaPlus, fila);
+    pianoKeyprintF(62 + columnaPlus, fila);
 }
 
 #endif
