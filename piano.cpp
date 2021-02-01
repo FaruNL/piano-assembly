@@ -193,7 +193,7 @@ void main() {
     show(initX, initY);   // Muestra el gráfico del piano
     design(initX, initY); // Muestra etiquetas y colores
 
-    cursorPos(0, initY + 7); // Cursor abajo de la interfax
+    cursorPos(0, initY + 7); // Cursor abajo de la interfaz
 
     initMouse();
 
