@@ -44,21 +44,24 @@ void cursorPos(char columna, char fila) {
     }
 }
 
-void pianoKeyprintP(char columna) {
-    cursorPos(columna, 0);
+void pianoKeyprintP(char columna, char fila) {
+    cursorPos(columna, fila);
     printS(headerP);
 
-    int fila = 1;
-    while (fila < 6) {
-        if (fila<4){
+    char filaLoop = fila + 6;
+    char filaBody = fila + 4;
+
+    fila++;
+    while (fila < filaLoop) {
+        if (fila < filaBody){
            cursorPos(columna, fila);
            printS(bodyP);
         }
-        if (fila==4){
+        if (fila == filaBody){
            cursorPos(columna, fila);
            printS(bodyMidP);
         }
-        if (fila>4){
+        if (fila > filaBody){
            cursorPos(columna, fila);
            printS(bodyMidVP);
         }
@@ -68,23 +71,26 @@ void pianoKeyprintP(char columna) {
     printS(footerP);
 }
 
-void pianoKeyprintM(char columna) {
-    cursorPos(columna, 0);
+void pianoKeyprintM(char columna, char fila) {
+    cursorPos(columna, fila);
     printS(headerP);
 
-    int fila = 1;
-    while (fila < 6) {
-        if (fila<4){
+    char filaLoop = fila + 6;
+    char filaBody = fila + 4;
+
+    fila++;
+    while (fila < filaLoop) {
+        if (fila < filaBody){
            cursorPos(columna, fila);
            printS(bodyP);
         }
-        if (fila==4){
+        if (fila == filaBody){
            columna --;
            columna --;
            cursorPos(columna, fila);
            printS(bodyMidM);
         }
-        if (fila>4){
+        if (fila > filaBody){
            cursorPos(columna, fila);
            printS(bodyMidVM);
         }
@@ -94,23 +100,26 @@ void pianoKeyprintM(char columna) {
     printS(footerM);
 }
 
-void pianoKeyprintF(char columna) {
-    cursorPos(columna, 0);
+void pianoKeyprintF(char columna, char fila) {
+    cursorPos(columna, fila);
     printS(headerP);
 
-    int fila = 1;
-    while (fila < 6) {
-        if (fila<4){
+    char filaLoop = fila + 6;
+    char filaBody = fila + 4;
+
+    fila++;
+    while (fila < filaLoop) {
+        if (fila < filaBody){
            cursorPos(columna, fila);
            printS(bodyP);
         }
-        if (fila==4){
+        if (fila == filaBody){
            columna --;
            columna --;
            cursorPos(columna, fila);
            printS(bodyMidF);
         }
-        if (fila>4){
+        if (fila > filaBody){
            cursorPos(columna, fila);
            printS(bodyMidVF);
         }
@@ -120,12 +129,14 @@ void pianoKeyprintF(char columna) {
     printS(footerP);
 }
 
-void pianoKeyprintS(char columna) {
-    cursorPos(columna, 0);
+void pianoKeyprintS(char columna, char fila) {
+    cursorPos(columna, fila);
     printS(headerS);
 
-    int fila = 1;
-    while (fila < 3) {
+    char filaLoop = fila + 3;
+
+    fila++;
+    while (fila < filaLoop) {
         cursorPos(columna, fila);
         printS(bodyS);
         fila++;
@@ -134,33 +145,20 @@ void pianoKeyprintS(char columna) {
     printS(footerS);
 }
 
-void pianoKeyprintN(char columna) {
-    cursorPos(columna, 0);
-    printS(headerP);
-
-    int fila = 1;
-    while (fila < 6) {
-      cursorPos(columna, fila);
-      printS(bodyP);
-      fila++;
-    }
-    cursorPos(columna, fila);
-    printS(footerN);
-}
-
 void show(){
-    pianoKeyprintP(0);
-    pianoKeyprintS(7);
-    pianoKeyprintM(11);
-    pianoKeyprintS(18);
-    pianoKeyprintF(22);
-    pianoKeyprintP(29);
-    pianoKeyprintS(36);
-    pianoKeyprintM(40);
-    pianoKeyprintS(47);
-    pianoKeyprintM(51);
-    pianoKeyprintS(58);
-    pianoKeyprintF(62);
+    int fila = 0;
+    pianoKeyprintP(0, fila);
+    pianoKeyprintS(7, fila);
+    pianoKeyprintM(11, fila);
+    pianoKeyprintS(18, fila);
+    pianoKeyprintF(22, fila);
+    pianoKeyprintP(29, fila);
+    pianoKeyprintS(36, fila);
+    pianoKeyprintM(40, fila);
+    pianoKeyprintS(47, fila);
+    pianoKeyprintM(51, fila);
+    pianoKeyprintS(58, fila);
+    pianoKeyprintF(62, fila);
 }
 
 #endif
