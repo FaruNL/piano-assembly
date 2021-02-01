@@ -135,26 +135,29 @@ void exitLabel() {
 }
 
 void design() {
-    color(1,1,5,5);
-    color(4,4,5,7);
+    char filasPlus = 0;
+    char columnasPlus = 0;
 
-    color(1,12,5,16);
-    color(4,10,5,18);
+    color(1 + filasPlus,1 + columnasPlus,5 + filasPlus,5 + columnasPlus);
+    color(4 + filasPlus,4 + columnasPlus,5 + filasPlus,7 + columnasPlus);
 
-    color(1,23,5,27);
-    color(4,21,5,24);
+    color(1 + filasPlus,12 + columnasPlus,5 + filasPlus,16 + columnasPlus);
+    color(4 + filasPlus,10 + columnasPlus,5 + filasPlus,18 + columnasPlus);
 
-    color(1,30,5,34);
-    color(4,31,5,36);
+    color(1 + filasPlus,23 + columnasPlus,5 + filasPlus,27 + columnasPlus);
+    color(4 + filasPlus,21 + columnasPlus,5 + filasPlus,24 + columnasPlus);
 
-    color(1,41,5,45);
-    color(4,39,5,47);
+    color(1 + filasPlus,30 + columnasPlus,5 + filasPlus,34 + columnasPlus);
+    color(4 + filasPlus,31 + columnasPlus,5 + filasPlus,36 + columnasPlus);
 
-    color(1,52,5,56);
-    color(4,50,5,58);
+    color(1 + filasPlus,41 + columnasPlus,5 + filasPlus,45 + columnasPlus);
+    color(4 + filasPlus,39 + columnasPlus,5 + filasPlus,47 + columnasPlus);
 
-    color(1,63,5,67);
-    color(4,61,5,63);
+    color(1 + filasPlus,52 + columnasPlus,5 + filasPlus,56 + columnasPlus);
+    color(4 + filasPlus,50 + columnasPlus,5 + filasPlus,58 + columnasPlus);
+
+    color(1 + filasPlus,63 + columnasPlus,5 + filasPlus,67 + columnasPlus);
+    color(4 + filasPlus,61 + columnasPlus,5 + filasPlus,63 + columnasPlus);
 
     colorExit(0,73,0,79);
     exitLabel();
