@@ -14,19 +14,6 @@ short A2       = 2711;
 short ASharp2  = 2559;
 short B2       = 2415;
 
-char strC2[]       = {'C2','$'};
-char strCSharp2[]  = {'C2','#','$'};
-char strD2[]       = {'D2','$'};
-char strDSharp2[]  = {'D2','#','$'};
-char strE2[]       = {'E2','$'};
-char strF2[]       = {'F2','$'};
-char strFSharp2[]  = {'F2','#','$'};
-char strG2[]       = {'G2','$'};
-char strGSharp2[]  = {'G2','#','$'};
-char strA2[]       = {'A2','$'};
-char strASharp2[]  = {'A2','#','$'};
-char strB2[]       = {'B2','$'};
-
 void setupSpeaker() {
     _asm {
         MOV    AL, 182

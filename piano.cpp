@@ -1,10 +1,10 @@
-//#include <stdio.h>
 #include <dos.h>
 #include <conio.h>
 #include <stdlib.h>
 
 #include "keyboard.h"
 #include "speaker.h"
+#include "design.h"
 
 /* Variables auxiliares */
 short mouseButton;
@@ -188,6 +188,7 @@ void main() {
     cls();
 
     show(); // Muestra el gráfico del piano
+    design();
 
     cursorPos(0, 7);
 
