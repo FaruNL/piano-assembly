@@ -32,7 +32,11 @@ void initMouse() {
     _asm {
         MOV AX, 0h
         INT 33h
+    }
+}
 
+void showMouse() {
+    _asm {
         MOV AX, 01h
         INT 33h
     }
@@ -196,6 +200,7 @@ void main() {
     cursorPos(0, initY + 7); // Cursor abajo de la interfaz
 
     initMouse();
+    showMouse();
 
     // Ciclo del mouse
     while(1){
@@ -204,7 +209,7 @@ void main() {
             setXandY();
             if((posY == 0) && (posX >= 73) && (posX <= 79) ) {
                 hideMouse();
-                return;
+                break;
             }
             if(posY == initY || posY == (initY + 1) || posY == (initY + 2) || posY == (initY + 3)) {
                 firstCheck(initX);
@@ -214,4 +219,5 @@ void main() {
             }
         }
     }
+    cls();
 }
