@@ -3,59 +3,84 @@
 
 char filename[] = "notas.txt";
 short fileHandle;
-char readed[50];
 char count = 50;
 
-void createFile(short access) {
+int createFile(short access) {
+    char created;
+    char notCreated;
     _asm {
         MOV AH, 3Ch
         MOV CX, access
         LEA DX, filename
         INT 21h
 
+        JC notCreated
+        JNC created
+    }
+    created:
+    _asm{
         MOV fileHandle, AX
     }
+    return 0;
+    notCreated:
+    return 1;
 }
 
 int openFile(char access) {
-    char abierto;
-    char noAbierto;
+    char opened;
+    char notOpened;
     _asm {
         MOV AH, 3Dh
         MOV AL, access
         LEA DX, filename
         INT 21h
 
-        JC noAbierto
-        JNC abierto
+        JC notOpened
+        JNC opened
     }
-    abierto:
+    opened:
     _asm{
         MOV fileHandle, AX
     }
-    printf("Si se pudo abrir\n");
     return 0;
-    noAbierto:
-    printf("No se pudo abrir\n");
+    notOpened:
     return 1;
 }
 
-void closeFile() {
+int closeFile() {
+    char closed;
+    char notClosed;
     _asm {
         MOV AH, 3Eh
         MOV BX, fileHandle
         INT 21h
+
+        JC notClosed
+        JNC closed
     }
+    closed:
+    return 0;
+    notClosed:
+    return 1;
 }
 
-void readFile(short bytes, char toStore[]) {
+int readFile(short bytes, char toStore[]) {
+    char leido;
+    char noLeido;
     _asm {
         MOV AH, 3Fh
         MOV BX, fileHandle
         MOV CX, bytes
         MOV DX, toStore
         INT 21h
+
+        JC noLeido
+        JNC leido
     }
+    leido:
+    return 0;
+    noLeido:
+    return 1;
 }
 
 int writeFile(short bytes, char toWrite[]) {
@@ -72,10 +97,8 @@ int writeFile(short bytes, char toWrite[]) {
         JNC escrito
     }
     escrito:
-    printf("Si se pudo escribir\n");
     return 0;
     noEscrito:
-    printf("No se pudo escribir\n");
     return 1;
 }
 
