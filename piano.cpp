@@ -1,15 +1,18 @@
 #include <dos.h>
 #include <conio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "keyboard.h"
 #include "speaker.h"
 #include "design.h"
+#include "files.h"
 
 /* Variables auxiliares */
 short mouseButton;
 char posX;
 char posY;
+int save = 0;
 
 /* Métodos generales */
 void cls() {
@@ -91,61 +94,73 @@ void firstCheck(char plus) {
         speakerFull(C2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flC);}
     }
     if ( (posX >= 7 + plus) && (posX <= 10 + plus) ) {
         speakerFull(CSharp2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flCSharp);}
     }
     if ( (posX >= 11 + plus) && (posX <= 17 + plus) ) {
         speakerFull(D2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flD);}
     }
     if ( (posX >= 18 + plus) && (posX <= 21 + plus) ) {
         speakerFull(DSharp2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flDSharp);}
     }
     if ( (posX >= 22 + plus) && (posX <= 28 + plus) ) {
         speakerFull(E2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flE);}
     }
     if ( (posX >= 29 + plus) && (posX <= 35 + plus) ) {
         speakerFull(F2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flF);}
     }
     if ( (posX >= 36 + plus) && (posX <= 39 + plus) ) {
         speakerFull(FSharp2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flFSharp);}
     }
     if ( (posX >= 40 + plus) && (posX <= 46 + plus) ) {
         speakerFull(G2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flG);}
     }
     if ( (posX >= 47 + plus) && (posX <= 50 + plus) ) {
         speakerFull(GSharp2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flGSharp);}
     }
     if ( (posX >= 51 + plus) && (posX <= 57 + plus) ) {
         speakerFull(A2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flA);}
     }
     if ( (posX >= 58 + plus) && (posX <= 61 + plus) ) {
         speakerFull(ASharp2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flASharp);}
     }
     if ( (posX >= 62 + plus) && (posX <= 68 + plus) ) {
         speakerFull(B2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flB);}
     }
 }
 
@@ -154,37 +169,75 @@ void secondCheck(char plus) {
         speakerFull(C2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flC);}
     }
     if ( (posX >= 9 + plus) && (posX <= 19 + plus) ) {
         speakerFull(D2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flD);}
     }
     if ( (posX >= 20 + plus) && (posX <= 28 + plus) ) {
         speakerFull(E2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flE);}
     }
     if ( (posX >= 29 + plus) && (posX <= 37 + plus) ) {
         speakerFull(F2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flF);}
     }
     if ( (posX >= 38 + plus) && (posX <= 48 + plus) ) {
         speakerFull(G2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flG);}
     }
     if ( (posX >= 49 + plus) && (posX <= 59 + plus) ) {
         speakerFull(A2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flA);}
     }
     if ( (posX >= 60 + plus) && (posX <= 68 + plus) ) {
         speakerFull(B2);
         releaseMouseButton();
         speakerOff();
+        if(save == 1){writeFile(1, flB);}
     }
+}
+
+void saveStatus() {
+    releaseMouseButton();
+    if(save == 0) {
+        save = 1;
+        hideMouse();
+        colorCustom(2,0,0,0,9);
+    } else {
+        save = 0;
+        hideMouse();
+        colorCustom(8,0,0,0,9);
+    }
+    cursorPos(0, 0);
+    printS(guardar);
+}
+
+void resetStatus() {
+    hideMouse();
+    colorCustom(1,0,10,0,23);
+    cursorPos(10, 0);
+    printS(reinc);
+    showMouse();
+
+    releaseMouseButton();
+
+    hideMouse();
+    colorCustom(8,0,10,0,23);
+    cursorPos(10, 0);
+    printS(reinc);
+    showMouse();
 }
 
 /* Main */
@@ -199,6 +252,11 @@ void main() {
 
     cursorPos(0, initY + 7); // Cursor abajo de la interfaz
 
+    if(openFile(1) == 1) {
+        createFile(0);
+        openFile(1);
+    }
+
     initMouse();
     showMouse();
 
@@ -209,11 +267,28 @@ void main() {
             setXandY();
             if((posY == 0) && (posX >= 73) && (posX <= 79) ) {
                 hideMouse();
+                closeFile();
                 break;
             }
+
+            if((posY == 0) && (posX >= 0) && (posX <= 9) ) {
+                saveStatus();
+                cursorPos(0, initY + 7);
+                showMouse();
+            }
+
+            if((posY == 0) && (posX >= 10) && (posX <= 23) ) {
+                resetStatus();
+                cursorPos(0, initY + 7);
+                closeFile();
+                createFile(0);
+                openFile(1);
+            }
+
             if(posY == initY || posY == (initY + 1) || posY == (initY + 2) || posY == (initY + 3)) {
                 firstCheck(initX);
             }
+
             if(posY == (initY + 4) || posY == (initY + 5) || posY == (initY + 6)) {
                 secondCheck(initX);
             }

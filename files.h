@@ -5,6 +5,24 @@ char filename[] = "notas.txt";
 short fileHandle;
 char count = 50;
 
+char flC[]      = "C";
+char flCSharp[] = "c";
+char flD[]      = "D";
+char flDSharp[] = "d";
+char flE[]      = "E";
+char flF[]      = "F";
+char flFSharp[] = "f";
+char flG[]      = "G";
+char flGSharp[] = "g";
+char flA[]      = "A";
+char flASharp[] = "a";
+char flB[]      = "B";
+
+/* 0 Fichero Normal
+ * 1 Fichero de Sólo Lectura
+ * 2 Fichero Oculto
+ * 3 Fichero de Sistema
+ */
 int createFile(short access) {
     char created;
     char notCreated;
@@ -26,6 +44,10 @@ int createFile(short access) {
     return 1;
 }
 
+/* 0 Acceso de sólo lectura
+ * 1 Acceso de sólo escritura.
+ * 4 Acceso de lectura/escritura
+ */
 int openFile(char access) {
     char opened;
     char notOpened;

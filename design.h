@@ -14,6 +14,8 @@ char strA[]      = "A$";
 char strASharp[] = "A#$";
 char strB[]      = "B$";
 char salir[]     = "[salir]$";
+char guardar[]   = "[guardar]$";
+char reinc[]     = "[reinc. arch.]$";
 
 void color(char filaESI, char columnaESI, char filaEID, char columnaEID) {
 	_asm {
@@ -27,10 +29,10 @@ void color(char filaESI, char columnaESI, char filaEID, char columnaEID) {
 	}
 }
 
-void colorExit(char filaESI, char columnaESI, char filaEID, char columnaEID) {
+void colorCustom(char color, char filaESI, char columnaESI, char filaEID, char columnaEID) {
 	_asm {
 		MOV AX,0600h
-		MOV BH,04h
+		MOV BH,color
 		MOV CH,filaESI
 		MOV CL,columnaESI
 		MOV DH,filaEID
@@ -125,15 +127,6 @@ void noteLabels(char columnaPlus, char filaPlus) {
 	}
 }
 
-void exitLabel() {
-    cursorPos(73, 0);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, salir
-        INT 21h
-    }
-}
-
 void design(char columnasPlus, char filasPlus) {
     color(1 + filasPlus,1 + columnasPlus,5 + filasPlus,5 + columnasPlus);
     color(4 + filasPlus,4 + columnasPlus,5 + filasPlus,7 + columnasPlus);
@@ -156,8 +149,17 @@ void design(char columnasPlus, char filasPlus) {
     color(1 + filasPlus,63 + columnasPlus,5 + filasPlus,67 + columnasPlus);
     color(4 + filasPlus,61 + columnasPlus,5 + filasPlus,63 + columnasPlus);
 
-    colorExit(0,73,0,79);
-    exitLabel();
+    colorCustom(8,0,0,0,9);
+    cursorPos(0, 0);
+    printS(guardar);
+
+    colorCustom(8,0,10,0,23);
+    cursorPos(10, 0);
+    printS(reinc);
+    
+    colorCustom(4,0,73,0,79);
+    cursorPos(73, 0);
+    printS(salir);
 
     noteLabels(columnasPlus, filasPlus);
 }
