@@ -13,11 +13,7 @@ char posX;
 char posY;
 int save = 0;
 
-/* Limpia pantalla y ubica el cursor en la esquina superior izquierda.
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
+
 void cls() {
     _asm {
         MOV AX, 0600h
@@ -33,11 +29,6 @@ void cls() {
     }
 }
 
-/* Inicializa el mouse.
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
 void initMouse() {
     _asm {
         MOV AX, 0h
@@ -45,11 +36,6 @@ void initMouse() {
     }
 }
 
-/* Muestra el puntero del mouse
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
 void showMouse() {
     _asm {
         MOV AX, 01h
@@ -57,11 +43,6 @@ void showMouse() {
     }
 }
 
-/* Oculta el puntero del mouse
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
 void hideMouse() {
     _asm {
         MOV AX, 02h
@@ -69,15 +50,6 @@ void hideMouse() {
     }
 }
 
-/* Retorna el estado de los botones del mouse.
- * Retorna la posición del puntero del mouse.
- *
- * Parametros: Nada
- * Devuelve:
- *      [I]: mouseButton = Botón presionado {BX} (1 = Click der. | 2 = Click izq. | 4 = Click cent.)
- *      [I]: CX = Posición del puntero respecto a X
- *      [I]: DX = Posición del puntero respecto a Y
- */
 void checkMouseButton() {
     _asm {
         MOV AX, 03h
@@ -87,13 +59,6 @@ void checkMouseButton() {
     }
 }
 
-/* Guarda la posición del puntero del mouse en las respectivas variables.
- *
- * Parametros: Nada
- * Devuelve:
- *      [I]: posX = Posición del puntero respecto a X
- *      [I]: posY = Posición del puntero respecto a Y
- */
 void setXandY() {
     _asm {
         MOV AX, DX
@@ -108,11 +73,6 @@ void setXandY() {
     }
 }
 
-/* Registra cuando se libera el botón del mouse.
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
 void releaseMouseButton() {
     char release;
 
@@ -126,17 +86,6 @@ void releaseMouseButton() {
     }
 }
 
-/* Genera sonidos hasta que se deje de presionar el botón izq. del mouse
- * según la posición del mouse. Además guarda la nota reproducida según el
- * estado de la bandera save.
- *
- * Sonidos generados == C, C#, D, D#, E, F, F#, G, G#, A, A#, B
- *
- * Parametros:
- *      char plus = Desplazamiento respecto a X
- *
- * Devuelve: Nada
- */
 void firstCheck(char plus) {
     if ( (posX >= 0 + plus) && (posX <= 6 + plus) ) {
         speakerFull(C2);
@@ -212,17 +161,6 @@ void firstCheck(char plus) {
     }
 }
 
-/* Genera sonidos hasta que se deje de presionar el botón izq. del mouse
- * según la posición del mouse. Además guarda la nota reproducida según el
- * estado de la bandera save.
- *
- * Sonidos generados == C, D, E, F, G, A, B
- *
- * Parametros:
- *      char plus = Desplazamiento respecto a X
- *
- * Devuelve: Nada
- */
 void secondCheck(char plus) {
     if ( (posX >= 0 + plus) && (posX <= 8 + plus) ) {
         speakerFull(C2);
@@ -268,12 +206,6 @@ void secondCheck(char plus) {
     }
 }
 
-/* Cambia el valor de la bandera save, y cambia el color
- * de la etiqueta [guardar].
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
 void saveStatus() {
     releaseMouseButton();
     if(save == 0) {
@@ -289,12 +221,6 @@ void saveStatus() {
     printS(guardar);
 }
 
-/* Cambia momentaneamente (hasta que se suelte el click) 
- * el color de la etiqueta [reinc. arch.].
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
 void resetStatus() {
     hideMouse();
     customColor(1,0,10,0,23);
@@ -311,17 +237,16 @@ void resetStatus() {
     showMouse();
 }
 
-/* Main */
 void main() {
     char initX = 4;
     char initY = 9;
 
     cls();
 
-    show(initX, initY);   // Muestra el gráfico del piano
-    design(initX, initY); // Muestra etiquetas y colores
+    show(initX, initY);   
+    design(initX, initY); 
 
-    cursorPos(0, initY + 7); // Cursor abajo de la interfaz
+    cursorPos(0, initY + 7); 
 
     if(openFile(1) == 1) {
         createFile(0);
@@ -331,27 +256,26 @@ void main() {
     initMouse();
     showMouse();
 
-    // Ciclo del mouse
     while(1){
         checkMouseButton();
         if(mouseButton == 1) {
             setXandY();
 
-            // Etiqueta [salir]
+
             if((posY == 0) && (posX >= 73) && (posX <= 79) ) {
                 hideMouse();
                 closeFile();
                 break;
             }
 
-            // Etiqueta [guardar]
+
             if((posY == 0) && (posX >= 0) && (posX <= 9) ) {
                 saveStatus();
                 cursorPos(0, initY + 7);
                 showMouse();
             }
             
-            // Etiqueta [reinc. arch.]
+
             if((posY == 0) && (posX >= 10) && (posX <= 23) ) {
                 resetStatus();
                 cursorPos(0, initY + 7);
@@ -360,12 +284,11 @@ void main() {
                 openFile(1);
             }
 
-            // Revisa la posición de las teclas 1
+
             if(posY == initY || posY == (initY + 1) || posY == (initY + 2) || posY == (initY + 3)) {
                 firstCheck(initX);
             }
 
-            // Revisa la posición de las teclas 2
             if(posY == (initY + 4) || posY == (initY + 5) || posY == (initY + 6)) {
                 secondCheck(initX);
             }

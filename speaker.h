@@ -14,11 +14,7 @@ short A2       = 2711;
 short ASharp2  = 2559;
 short B2       = 2415;
 
-/* Prepara la bocina para recibir una nota.
- *
- * Parametros:Nada
- * Devuelve: Nada
- */
+
 void setupSpeaker() {
     _asm {
         MOV    AL, 182
@@ -26,24 +22,12 @@ void setupSpeaker() {
     }
 }
 
-/* Preparamos la frecuencia de la nota a ser enviada.
- *
- * Parametros:
- *      short frec = Frecuencia
- *
- * Devuelve: Nada
- */
 void setupFrec(short frec) {
     _asm {
         MOV    AX, frec
     }
 }
 
-/* Enviamos la frecuencia al puerto 42h, por partes (AL -> AH).
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
 void sendFrec() {
     _asm {
         OUT    42h, AL
@@ -52,12 +36,6 @@ void sendFrec() {
     }
 }
 
-/* Encendemos la bocina, ya con la nota establecida.
- * Generando el sonido.
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
 void speakerOn() {
     _asm {
         IN     AL, 61h
@@ -66,11 +44,6 @@ void speakerOn() {
     }
 }
 
-/* Apagamos la bocina.
- *
- * Parametros: Nada
- * Devuelve: Nada
- */
 void speakerOff(){
     _asm {
         IN     AL, 61h
@@ -79,13 +52,6 @@ void speakerOff(){
     }
 }
 
-/* Realiza los métodos anteriores hasta la generación del sonido.
- *
- * Parametros:
- *      short frec = Frecuencia
- *
- * Devuelve: Nada
- */
 void speakerFull(short frec) {
     setupSpeaker();
     setupFrec(frec);

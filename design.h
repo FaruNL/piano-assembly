@@ -17,16 +17,6 @@ char salir[]     = "[salir]$";
 char guardar[]   = "[guardar]$";
 char reinc[]     = "[reinc. arch.]$";
 
-/* Colorea de gris claro la sección inicada por las coordenadas.
- *
- * Parametros:
- *      char filaI    = Coordenadas iniciales respecto a Y
- *      char columnaI = Coordenadas iniciales respecto a X
- *      char filaF    = Coordenadas finales respecto a Y
- *      char columnaF = Coordenadas finales respecto a X
- *
- * Devuelve: Nada
- */
 void color(char filaI, char columnaI, char filaF, char columnaF) {
 	_asm {
 		MOV AX,0600h
@@ -39,17 +29,6 @@ void color(char filaI, char columnaI, char filaF, char columnaF) {
 	}
 }
 
-/* Colorea de un color la sección inicada por las coordenadas.
- *
- * Parametros:
- *      char color    = XYh (X es el color de fondo, Y es el color de las letras)
- *      char filaI    = Coordenadas iniciales respecto a Y
- *      char columnaI = Coordenadas iniciales respecto a X
- *      char filaF    = Coordenadas finales respecto a Y
- *      char columnaF = Coordenadas finales respecto a X
- *
- * Devuelve: Nada
- */
 void customColor(char color, char filaI, char columnaI, char filaF, char columnaF) {
 	_asm {
 		MOV AX,0600h
@@ -62,14 +41,6 @@ void customColor(char color, char filaI, char columnaI, char filaF, char columna
 	}
 }
 
-/* Imprime el simbolo de las notas en cada tecla.
- *
- * Parametros:
- *      char columna = Desplazamiento respecto a X
- *      char fila    = Desplazamiento respecto a Y
- *
- * Devuelve: Nada
- */
 void noteLabels(char columna, char fila) {
     cursorPos(4 + columna, 5 + fila);
 	printS(strC);
@@ -108,15 +79,6 @@ void noteLabels(char columna, char fila) {
     printS(strB);
 }
 
-/* Colorea el teclado completo, coloca las notas en las teclas
- * y coloca las etiquetas de salida y funciones
- *
- * Parametros:
- *      char columnas = Desplazamiento respecto a X
- *      char filas    = Desplazamiento respecto a Y
- *
- * Devuelve: Nada
- */
 void design(char columnas, char filas) {
     color(1 + filas,1 + columnas,5 + filas,5 + columnas);
     color(4 + filas,4 + columnas,5 + filas,7 + columnas);
