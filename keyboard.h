@@ -1,39 +1,48 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-char headerP[] = {218,196,196,196,196,196,191,'$'};
-char bodyP[] =   {179,' ',' ',' ',' ',' ',179,'$'};
-char bodyMidP[] =   {179,' ',' ',' ',' ',' ',192,196,191,'$'};
-char bodyMidVP[] =   {179,' ',' ',' ',' ',' ',' ',' ',179,'$'};
-char footerP[] = {192,196,196,196,196,196,196,196,217,'$'};
+char headerP[]   = {218,196,196,196,196,196,191,'$'};
+char bodyP[]     = {179,' ',' ',' ',' ',' ',179,'$'};
+char bodyMidP[]  = {179,' ',' ',' ',' ',' ',192,196,191,'$'};
+char bodyMidVP[] = {179,' ',' ',' ',' ',' ',' ',' ',179,'$'};
+char footerP[]   = {192,196,196,196,196,196,196,196,217,'$'};
 
-char footerN[] = {192,196,196,196,196,196,217,'$'};
+char footerN[]   = {192,196,196,196,196,196,217,'$'};
 
-char bodyMidM[] =   {218,196,217,' ',' ',' ',' ',' ',192,196,191,'$'};
-char bodyMidVM[] =   {179,' ',' ',' ',' ',' ',' ',' ',' ',' ',179,'$'};
-char footerM[] = {192,196,196,196,196,196,196,196,196,196,217,'$'};
+char bodyMidM[]  = {218,196,217,' ',' ',' ',' ',' ',192,196,191,'$'};
+char bodyMidVM[] = {179,' ',' ',' ',' ',' ',' ',' ',' ',' ',179,'$'};
+char footerM[]   = {192,196,196,196,196,196,196,196,196,196,217,'$'};
 
-char bodyMidF[] =   {218,196,217,' ',' ',' ',' ',' ',179,'$'};
-char bodyMidVF[] =   {179,' ',' ',' ',' ',' ',' ',' ',179,'$'};
+char bodyMidF[]  = {218,196,217,' ',' ',' ',' ',' ',179,'$'};
+char bodyMidVF[] = {179,' ',' ',' ',' ',' ',' ',' ',179,'$'};
 
-char headerS[] = {218,196,196,191,'$'};
-char bodyS[] =   {179,' ',' ',179,'$'};
-char footerS[] = {192,196,196,217,'$'};
+char headerS[]   = {218,196,196,191,'$'};
+char bodyS[]     = {179,' ',' ',179,'$'};
+char footerS[]   = {192,196,196,217,'$'};
 
+/* Imprime una cadena.
+ *
+ * Parametros:
+ *      char[] string = Cadena a imprimir
+ *
+ * Devuelve: Nada
+ */
 void printS(char string[]) {
-    int posicion = 0;
-    char letra;
-    while(string[posicion] != '$') {
-        letra = string[posicion];
-        _asm {
-		    MOV AH, 02h
-		    MOV DL, letra
-		    INT 21h
-	    }
-        posicion++;
+    _asm {
+        MOV AH, 09h
+        MOV DX, string
+        INT 21h
     }
 }
 
+/* Posiciona el cursor en las coordenadas especificadas.
+ *
+ * Parametros:
+ *      char columna = Coordenadas respecto a X
+ *      char fila    = Coordenadas respecto a Y
+ *
+ * Devuelve: Nada
+ */
 void cursorPos(char columna, char fila) {
     _asm {
         MOV AH, 02h
@@ -44,6 +53,21 @@ void cursorPos(char columna, char fila) {
     }
 }
 
+/* Imprime:
+ * ┌─────┐
+ * │     │
+ * │     │
+ * │     │
+ * │     └─┐
+ * │       │
+ * └───────┘
+ *
+ * Parametros:
+ *      char columna = Desplazamiento respecto a X
+ *      char fila    = Desplazamiento respecto a Y
+ *
+ * Devuelve: Nada
+ */
 void pianoKeyprintP(char columna, char fila) {
     cursorPos(columna, fila);
     printS(headerP);
@@ -71,6 +95,21 @@ void pianoKeyprintP(char columna, char fila) {
     printS(footerP);
 }
 
+/* Imprime:
+ *   ┌─────┐
+ *   │     │
+ *   │     │
+ *   │     │
+ * ┌─┘     └─┐
+ * │         │
+ * └─────────┘
+ *
+ * Parametros:
+ *      char columna = Desplazamiento respecto a X
+ *      char fila    = Desplazamiento respecto a Y
+ *
+ * Devuelve: Nada
+ */
 void pianoKeyprintM(char columna, char fila) {
     cursorPos(columna, fila);
     printS(headerP);
@@ -100,6 +139,21 @@ void pianoKeyprintM(char columna, char fila) {
     printS(footerM);
 }
 
+/* Imprime:
+ *   ┌─────┐
+ *   │     │
+ *   │     │
+ *   │     │
+ * ┌─┘     │
+ * │       │
+ * └───────┘
+ *
+ * Parametros:
+ *      char columna = Desplazamiento respecto a X
+ *      char fila    = Desplazamiento respecto a Y
+ *
+ * Devuelve: Nada
+ */
 void pianoKeyprintF(char columna, char fila) {
     cursorPos(columna, fila);
     printS(headerP);
@@ -129,6 +183,18 @@ void pianoKeyprintF(char columna, char fila) {
     printS(footerP);
 }
 
+/* Imprime:
+ * ┌──┐
+ * │  │
+ * │  │
+ * └──┘
+ *
+ * Parametros:
+ *      char columna = Desplazamiento respecto a X
+ *      char fila    = Desplazamiento respecto a Y
+ *
+ * Devuelve: Nada
+ */
 void pianoKeyprintS(char columna, char fila) {
     cursorPos(columna, fila);
     printS(headerS);
@@ -145,6 +211,14 @@ void pianoKeyprintS(char columna, char fila) {
     printS(footerS);
 }
 
+/* Imprime el teclado completo.
+ *
+ * Parametros:
+ *      char columna = Desplazamiento respecto a X
+ *      char fila    = Desplazamiento respecto a Y
+ *
+ * Devuelve: Nada
+ */
 void show(char columnaPlus, char fila){
     pianoKeyprintP(0 + columnaPlus, fila);
     pianoKeyprintS(7 + columnaPlus, fila);

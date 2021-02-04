@@ -18,17 +18,22 @@ char flA[]      = "A";
 char flASharp[] = "a";
 char flB[]      = "B";
 
-/* 0 Fichero Normal
- * 1 Fichero de Sólo Lectura
- * 2 Fichero Oculto
- * 3 Fichero de Sistema
+/* Crea un archivo (Llamado por defecto 'NOTAS.TXT').
+ *
+ * Parametros:
+ *      short type    = Tipo de archivo (0 = Fichero normal | 1 = Fichero de sólo lectura | 2 = Fichero oculto | 3 = Fichero de sistema)
+ *      [I]: filename = Nombre del archivo
+ *
+ * Devuelve:
+ *      int             = 0 (Creado), 1 (No creado)
+ *      [I]: fileHandle = Manejador único del archivo
  */
-int createFile(short access) {
+int createFile(short type) {
     char created;
     char notCreated;
     _asm {
         MOV AH, 3Ch
-        MOV CX, access
+        MOV CX, type
         LEA DX, filename
         INT 21h
 
@@ -44,9 +49,15 @@ int createFile(short access) {
     return 1;
 }
 
-/* 0 Acceso de sólo lectura
- * 1 Acceso de sólo escritura.
- * 4 Acceso de lectura/escritura
+/* Abre un archivo (Llamado por defecto 'NOTAS.TXT').
+ *
+ * Parametros:
+ *      char access   = Tipo de acceso (0 = Sólo lectura | 1 = Sólo escritura | 4 = Lectura/Escritura)
+ *      [I]: filename = Nombre del archivo
+ *
+ * Devuelve:
+ *      int             = 0 (Abierto), 1 (No abierto)
+ *      [I]: fileHandle = Manejador único del archivo
  */
 int openFile(char access) {
     char opened;
@@ -69,6 +80,14 @@ int openFile(char access) {
     return 1;
 }
 
+/* Cierra un archivo.
+ *
+ * Parametros:
+ *      [I]: fileHandle = Manejador único del archivo
+ *
+ * Devuelve:
+ *      int = 0 (Cerrado), 1 (No cerrado)
+ */
 int closeFile() {
     char closed;
     char notClosed;
@@ -86,6 +105,16 @@ int closeFile() {
     return 1;
 }
 
+/* Lee un archivo.
+ *
+ * Parametros:
+ *      short bytes      = Numero de bytes a leer
+ *      char[] toStore   = Arreglo donde se guardará lo leido
+ *      [I]: fileHandle  = Manejador único del archivo
+ *
+ * Devuelve:
+ *      int = 0 (Leido), 1 (No leido)
+ */
 int readFile(short bytes, char toStore[]) {
     char leido;
     char noLeido;
@@ -105,6 +134,16 @@ int readFile(short bytes, char toStore[]) {
     return 1;
 }
 
+/* Escribe en un archivo.
+ *
+ * Parametros:
+ *      short bytes      = Numero de bytes a escribir
+ *      char[] toStore   = Arreglo donde se tomará los bytes a escribir.
+ *      [I]: fileHandle  = Manejador único del archivo
+ *
+ * Devuelve:
+ *      int = 0 (Escrito), 1 (No escrito)
+ */
 int writeFile(short bytes, char toWrite[]) {
     char escrito;
     char noEscrito;

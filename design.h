@@ -17,151 +17,141 @@ char salir[]     = "[salir]$";
 char guardar[]   = "[guardar]$";
 char reinc[]     = "[reinc. arch.]$";
 
-void color(char filaESI, char columnaESI, char filaEID, char columnaEID) {
+/* Colorea de gris claro la sección inicada por las coordenadas.
+ *
+ * Parametros:
+ *      char filaI    = Coordenadas iniciales respecto a Y
+ *      char columnaI = Coordenadas iniciales respecto a X
+ *      char filaF    = Coordenadas finales respecto a Y
+ *      char columnaF = Coordenadas finales respecto a X
+ *
+ * Devuelve: Nada
+ */
+void color(char filaI, char columnaI, char filaF, char columnaF) {
 	_asm {
 		MOV AX,0600h
 		MOV BH,78h
-		MOV CH,filaESI
-		MOV CL,columnaESI
-		MOV DH,filaEID
-		MOV DL,columnaEID
+		MOV CH,filaI
+		MOV CL,columnaI
+		MOV DH,filaF
+		MOV DL,columnaF
 		INT 10h
 	}
 }
 
-void colorCustom(char color, char filaESI, char columnaESI, char filaEID, char columnaEID) {
+/* Colorea de un color la sección inicada por las coordenadas.
+ *
+ * Parametros:
+ *      char color    = XYh (X es el color de fondo, Y es el color de las letras)
+ *      char filaI    = Coordenadas iniciales respecto a Y
+ *      char columnaI = Coordenadas iniciales respecto a X
+ *      char filaF    = Coordenadas finales respecto a Y
+ *      char columnaF = Coordenadas finales respecto a X
+ *
+ * Devuelve: Nada
+ */
+void customColor(char color, char filaI, char columnaI, char filaF, char columnaF) {
 	_asm {
 		MOV AX,0600h
 		MOV BH,color
-		MOV CH,filaESI
-		MOV CL,columnaESI
-		MOV DH,filaEID
-		MOV DL,columnaEID
+		MOV CH,filaI
+		MOV CL,columnaI
+		MOV DH,filaF
+		MOV DL,columnaF
 		INT 10h
 	}
 }
 
-void noteLabels(char columnaPlus, char filaPlus) {
-    cursorPos(4 + columnaPlus, 5 + filaPlus);
-	_asm {
-        MOV AH, 09h      
-        LEA DX, strC
-        INT 21h
-    }
+/* Imprime el simbolo de las notas en cada tecla.
+ *
+ * Parametros:
+ *      char columna = Desplazamiento respecto a X
+ *      char fila    = Desplazamiento respecto a Y
+ *
+ * Devuelve: Nada
+ */
+void noteLabels(char columna, char fila) {
+    cursorPos(4 + columna, 5 + fila);
+	printS(strC);
 
-    cursorPos(8 + columnaPlus, 2 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strCSharp
-        INT 21h
-    }
+    cursorPos(8 + columna, 2 + fila);
+    printS(strCSharp);
 
-    cursorPos(14 + columnaPlus, 5 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strD
-        INT 21h
-    }
+    cursorPos(14 + columna, 5 + fila);
+    printS(strD);
 
-    cursorPos(19 + columnaPlus, 2 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strDSharp
-        INT 21h
-    }
+    cursorPos(19 + columna, 2 + fila);
+    printS(strDSharp);
 
-    cursorPos(24 + columnaPlus, 5 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strE
-        INT 21h
-    }
+    cursorPos(24 + columna, 5 + fila);
+    printS(strE);
 
-    cursorPos(33 + columnaPlus, 5 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strF
-        INT 21h
-    }
+    cursorPos(33 + columna, 5 + fila);
+    printS(strF);
 
-    cursorPos(37 + columnaPlus, 2 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strFSharp
-        INT 21h
-    }
+    cursorPos(37 + columna, 2 + fila);
+    printS(strFSharp);
 
-    cursorPos(43 + columnaPlus, 5 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strG
-        INT 21h
-    }
+    cursorPos(43 + columna, 5 + fila);
+    printS(strG);
 
-    cursorPos(48 + columnaPlus, 2 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strGSharp
-        INT 21h
-    }
+    cursorPos(48 + columna, 2 + fila);
+    printS(strGSharp);
 
-    cursorPos(54 + columnaPlus, 5 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strA
-        INT 21h
-    }
+    cursorPos(54 + columna, 5 + fila);
+    printS(strA);
 
-    cursorPos(59 + columnaPlus, 2 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strASharp
-        INT 21h
-    }
+    cursorPos(59 + columna, 2 + fila);
+    printS(strASharp);
 
-    cursorPos(64 + columnaPlus, 5 + filaPlus);
-    _asm {
-        MOV AH, 09h      
-        LEA DX, strB
-        INT 21h
-	}
+    cursorPos(64 + columna, 5 + fila);
+    printS(strB);
 }
 
-void design(char columnasPlus, char filasPlus) {
-    color(1 + filasPlus,1 + columnasPlus,5 + filasPlus,5 + columnasPlus);
-    color(4 + filasPlus,4 + columnasPlus,5 + filasPlus,7 + columnasPlus);
+/* Colorea el teclado completo, coloca las notas en las teclas
+ * y coloca las etiquetas de salida y funciones
+ *
+ * Parametros:
+ *      char columnas = Desplazamiento respecto a X
+ *      char filas    = Desplazamiento respecto a Y
+ *
+ * Devuelve: Nada
+ */
+void design(char columnas, char filas) {
+    color(1 + filas,1 + columnas,5 + filas,5 + columnas);
+    color(4 + filas,4 + columnas,5 + filas,7 + columnas);
 
-    color(1 + filasPlus,12 + columnasPlus,5 + filasPlus,16 + columnasPlus);
-    color(4 + filasPlus,10 + columnasPlus,5 + filasPlus,18 + columnasPlus);
+    color(1 + filas,12 + columnas,5 + filas,16 + columnas);
+    color(4 + filas,10 + columnas,5 + filas,18 + columnas);
 
-    color(1 + filasPlus,23 + columnasPlus,5 + filasPlus,27 + columnasPlus);
-    color(4 + filasPlus,21 + columnasPlus,5 + filasPlus,24 + columnasPlus);
+    color(1 + filas,23 + columnas,5 + filas,27 + columnas);
+    color(4 + filas,21 + columnas,5 + filas,24 + columnas);
 
-    color(1 + filasPlus,30 + columnasPlus,5 + filasPlus,34 + columnasPlus);
-    color(4 + filasPlus,31 + columnasPlus,5 + filasPlus,36 + columnasPlus);
+    color(1 + filas,30 + columnas,5 + filas,34 + columnas);
+    color(4 + filas,31 + columnas,5 + filas,36 + columnas);
 
-    color(1 + filasPlus,41 + columnasPlus,5 + filasPlus,45 + columnasPlus);
-    color(4 + filasPlus,39 + columnasPlus,5 + filasPlus,47 + columnasPlus);
+    color(1 + filas,41 + columnas,5 + filas,45 + columnas);
+    color(4 + filas,39 + columnas,5 + filas,47 + columnas);
 
-    color(1 + filasPlus,52 + columnasPlus,5 + filasPlus,56 + columnasPlus);
-    color(4 + filasPlus,50 + columnasPlus,5 + filasPlus,58 + columnasPlus);
+    color(1 + filas,52 + columnas,5 + filas,56 + columnas);
+    color(4 + filas,50 + columnas,5 + filas,58 + columnas);
 
-    color(1 + filasPlus,63 + columnasPlus,5 + filasPlus,67 + columnasPlus);
-    color(4 + filasPlus,61 + columnasPlus,5 + filasPlus,63 + columnasPlus);
+    color(1 + filas,63 + columnas,5 + filas,67 + columnas);
+    color(4 + filas,61 + columnas,5 + filas,63 + columnas);
 
-    colorCustom(8,0,0,0,9);
+    customColor(8,0,0,0,9);
     cursorPos(0, 0);
     printS(guardar);
 
-    colorCustom(8,0,10,0,23);
+    customColor(8,0,10,0,23);
     cursorPos(10, 0);
     printS(reinc);
     
-    colorCustom(4,0,73,0,79);
+    customColor(4,0,73,0,79);
     cursorPos(73, 0);
     printS(salir);
 
-    noteLabels(columnasPlus, filasPlus);
+    noteLabels(columnas, filas);
 }
 
 #endif

@@ -8,13 +8,16 @@
 #include "design.h"
 #include "files.h"
 
-/* Variables auxiliares */
 short mouseButton;
 char posX;
 char posY;
 int save = 0;
 
-/* Métodos generales */
+/* Limpia pantalla y ubica el cursor en la esquina superior izquierda.
+ *
+ * Parametros: Nada
+ * Devuelve: Nada
+ */
 void cls() {
     _asm {
         MOV AX, 0600h
@@ -30,7 +33,11 @@ void cls() {
     }
 }
 
-/* Mouse */
+/* Inicializa el mouse.
+ *
+ * Parametros: Nada
+ * Devuelve: Nada
+ */
 void initMouse() {
     _asm {
         MOV AX, 0h
@@ -38,6 +45,11 @@ void initMouse() {
     }
 }
 
+/* Muestra el puntero del mouse
+ *
+ * Parametros: Nada
+ * Devuelve: Nada
+ */
 void showMouse() {
     _asm {
         MOV AX, 01h
@@ -45,6 +57,11 @@ void showMouse() {
     }
 }
 
+/* Oculta el puntero del mouse
+ *
+ * Parametros: Nada
+ * Devuelve: Nada
+ */
 void hideMouse() {
     _asm {
         MOV AX, 02h
@@ -52,6 +69,15 @@ void hideMouse() {
     }
 }
 
+/* Retorna el estado de los botones del mouse.
+ * Retorna la posición del puntero del mouse.
+ *
+ * Parametros: Nada
+ * Devuelve:
+ *      [I]: mouseButton = Botón presionado {BX} (1 = Click der. | 2 = Click izq. | 4 = Click cent.)
+ *      [I]: CX = Posición del puntero respecto a X
+ *      [I]: DX = Posición del puntero respecto a Y
+ */
 void checkMouseButton() {
     _asm {
         MOV AX, 03h
@@ -61,6 +87,13 @@ void checkMouseButton() {
     }
 }
 
+/* Guarda la posición del puntero del mouse en las respectivas variables.
+ *
+ * Parametros: Nada
+ * Devuelve:
+ *      [I]: posX = Posición del puntero respecto a X
+ *      [I]: posY = Posición del puntero respecto a Y
+ */
 void setXandY() {
     _asm {
         MOV AX, DX
@@ -75,6 +108,11 @@ void setXandY() {
     }
 }
 
+/* Registra cuando se libera el botón del mouse.
+ *
+ * Parametros: Nada
+ * Devuelve: Nada
+ */
 void releaseMouseButton() {
     char release;
 
@@ -88,7 +126,17 @@ void releaseMouseButton() {
     }
 }
 
-/* Revisiones en PosX  */
+/* Genera sonidos hasta que se deje de presionar el botón izq. del mouse
+ * según la posición del mouse. Además guarda la nota reproducida según el
+ * estado de la bandera save.
+ *
+ * Sonidos generados == C, C#, D, D#, E, F, F#, G, G#, A, A#, B
+ *
+ * Parametros:
+ *      char plus = Desplazamiento respecto a X
+ *
+ * Devuelve: Nada
+ */
 void firstCheck(char plus) {
     if ( (posX >= 0 + plus) && (posX <= 6 + plus) ) {
         speakerFull(C2);
@@ -164,6 +212,17 @@ void firstCheck(char plus) {
     }
 }
 
+/* Genera sonidos hasta que se deje de presionar el botón izq. del mouse
+ * según la posición del mouse. Además guarda la nota reproducida según el
+ * estado de la bandera save.
+ *
+ * Sonidos generados == C, D, E, F, G, A, B
+ *
+ * Parametros:
+ *      char plus = Desplazamiento respecto a X
+ *
+ * Devuelve: Nada
+ */
 void secondCheck(char plus) {
     if ( (posX >= 0 + plus) && (posX <= 8 + plus) ) {
         speakerFull(C2);
@@ -209,24 +268,36 @@ void secondCheck(char plus) {
     }
 }
 
+/* Cambia el valor de la bandera save, y cambia el color
+ * de la etiqueta [guardar].
+ *
+ * Parametros: Nada
+ * Devuelve: Nada
+ */
 void saveStatus() {
     releaseMouseButton();
     if(save == 0) {
         save = 1;
         hideMouse();
-        colorCustom(2,0,0,0,9);
+        customColor(2,0,0,0,9);
     } else {
         save = 0;
         hideMouse();
-        colorCustom(8,0,0,0,9);
+        customColor(8,0,0,0,9);
     }
     cursorPos(0, 0);
     printS(guardar);
 }
 
+/* Cambia momentaneamente (hasta que se suelte el click) 
+ * el color de la etiqueta [reinc. arch.].
+ *
+ * Parametros: Nada
+ * Devuelve: Nada
+ */
 void resetStatus() {
     hideMouse();
-    colorCustom(1,0,10,0,23);
+    customColor(1,0,10,0,23);
     cursorPos(10, 0);
     printS(reinc);
     showMouse();
@@ -234,7 +305,7 @@ void resetStatus() {
     releaseMouseButton();
 
     hideMouse();
-    colorCustom(8,0,10,0,23);
+    customColor(8,0,10,0,23);
     cursorPos(10, 0);
     printS(reinc);
     showMouse();
@@ -265,18 +336,22 @@ void main() {
         checkMouseButton();
         if(mouseButton == 1) {
             setXandY();
+
+            // Etiqueta [salir]
             if((posY == 0) && (posX >= 73) && (posX <= 79) ) {
                 hideMouse();
                 closeFile();
                 break;
             }
 
+            // Etiqueta [guardar]
             if((posY == 0) && (posX >= 0) && (posX <= 9) ) {
                 saveStatus();
                 cursorPos(0, initY + 7);
                 showMouse();
             }
-
+            
+            // Etiqueta [reinc. arch.]
             if((posY == 0) && (posX >= 10) && (posX <= 23) ) {
                 resetStatus();
                 cursorPos(0, initY + 7);
@@ -285,10 +360,12 @@ void main() {
                 openFile(1);
             }
 
+            // Revisa la posición de las teclas 1
             if(posY == initY || posY == (initY + 1) || posY == (initY + 2) || posY == (initY + 3)) {
                 firstCheck(initX);
             }
 
+            // Revisa la posición de las teclas 2
             if(posY == (initY + 4) || posY == (initY + 5) || posY == (initY + 6)) {
                 secondCheck(initX);
             }
